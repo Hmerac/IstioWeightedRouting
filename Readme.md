@@ -1,4 +1,5 @@
 
+
 # README
 ## Decision-Making Process
 
@@ -64,6 +65,10 @@ This step includes my environment to implement the solution.
        $ kubectl apply -f service.yml
        $ kubectl apply -f deployment_go.yml
        $ kubectl apply -f deployment_java.yml
+- (Optional) I've added two HPA files for both deployments. If you'd like to provision pod autoscaling, you can execute
+ 
+       $ kubectl apply -f hpa_go.yml
+       $ kubectl apply -f hpa_java.yml
 
  - To test whether the deployments are working or not, port-forward the deployments by
 
