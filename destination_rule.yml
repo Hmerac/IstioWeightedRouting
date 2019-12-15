@@ -1,9 +1,9 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: trivago
+  name: wr
 spec:
-  host: trivago
+  host: wr
   subsets:
   - name: java
     labels:
