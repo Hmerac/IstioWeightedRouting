@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trivago-go
+  name: wr-go
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: trivago
+      app: wr
   template:
     metadata:
       labels:
-        app: trivago
+        app: wr
         version: go
     spec:
       containers:
-      - name: trivago
-        image: mert/trivago:go
+      - name: wr
+        image: mert/wr:go
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
