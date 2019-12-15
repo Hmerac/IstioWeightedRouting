@@ -17,17 +17,17 @@ I'm open for any critics/suggestions with the design.
 ## Service Design
 I've dockerized and used Java and Go applications with the names/tags of
 
-- **Java**: mert/trivago:java
-- **Go**: mert/trivago:go
+- **Java**: mert/wr:java
+- **Go**: mert/wr:go
 
 I provided the Dockerfiles just in case.
 
 Since we're focused on Canary Deployment by specifying weights for applications, I decided to use one service and two deployments. Components are as listed
-- **1 Service**: trivago
-- **2 Deployments(Subsets)**: trivago-go and trivago-java
-- **1 Virtual Service**: trivago
-- **1 Destination Rule**: trivago
-- **1 Ingress Gateway**: trivago-gateway
+- **1 Service**: wr
+- **2 Deployments(Subsets)**: wr-go and wr-java
+- **1 Virtual Service**: wr
+- **1 Destination Rule**: wr
+- **1 Ingress Gateway**: wr-gateway
 
 I'd like to point out that Istio also supports weighted routing between two different services. But this is not the case in this presentation.
  
@@ -72,10 +72,10 @@ This step includes my environment to implement the solution.
 
  - To test whether the deployments are working or not, port-forward the deployments by
 
-       $ kubectl port-forward deployment/trivago-go 8080:8080 (curl http://localhost:8080)
-       $ kubectl port-forward deployment/trivago-java 8081:8080 (curl http://localhost:8081)
+       $ kubectl port-forward deployment/wr-go 8080:8080 (curl http://localhost:8080)
+       $ kubectl port-forward deployment/wr-java 8081:8080 (curl http://localhost:8081)
        $ # OR
-       $ curl $(kubectl get service -n default |grep trivago | awk '{print $3}'):8080
+       $ curl $(kubectl get service -n default |grep wr | awk '{print $3}'):8080
 
 - After ensuring that the deployments are working as expected, create an Ingress Gateway, Virtual Service and Destination Rule by
 
@@ -83,13 +83,13 @@ This step includes my environment to implement the solution.
       $ kubectl apply -f virtual_service.yml 
       $ kubectl apply -f destination_rule.yml
 
-- Modify /etc/hosts file to map Ingress Gateway IP with hired-by-trivago.com by
+- Modify /etc/hosts file to map Ingress Gateway IP with wr.com by
 
-      $ echo "$(kubectl get service -n istio-system | grep ingress | awk '{print $3}') hired-by-trivago.com" | sudo tee -a /etc/hosts
+      $ echo "$(kubectl get service -n istio-system | grep ingress | awk '{print $3}') wr.com" | sudo tee -a /etc/hosts
 
 - To test the connection for Ingress Gateway and make requests for Kiali monitoring later, execute
 
-      - for ((i=1;i<=100;i++)); do curl -s -o /dev/null -v "hired-by-trivago.com"; sleep 0.2; done
+      - for ((i=1;i<=100;i++)); do curl -s -o /dev/null -v "wr.com"; sleep 0.2; done
 
 - After making 100 requests, we can now see that the Go subset gets approximately two out of three requests and Java subset gets one of three.
 ![Load Balancing two versions](https://codeogre-photo.s3-eu-west-1.amazonaws.com/kiali.png) 
