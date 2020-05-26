@@ -1,26 +1,11 @@
 
 
 # README
-## Decision-Making Process
-
-After experimenting Proof of Concepts and dealing with bugs, I decided that implementing aforementioned architecture with **Kubernetes** and **Istio** on **Minikube** would be the best solution. I'll briefly explain why.
-
-Proof of Concepts include using Nginx Ingress Controller canary annotations, installing Traefik Controller and using it's canary annotations to deliver the MVP which is weighted routing between two applications. 
-
-After tweaking Nginx Ingress Controller, I can say with certainty that Nginx is fully capable of implementing B/G and Canary releases but I cannot say that for Traefik(v1.7). After implementing the canary architecture with Traefik, I noticed that the controller doesn't respect the weight values, instead, it always routes to the most weighted application. For more information, please refer to, https://github.com/containous/traefik/issues/4494#issuecomment-557080179
-*PS. They seem to fix this issue with Traefik v2.1*
-
-At this point, I decided to try Istio not only because it has weighted routing implementation but also has other out of box advanced functionalities such as traffic management and monitoring. I'll verify that the architecture works by Kiali.
-
-I'm open for any critics/suggestions with the design. 
-
 ## Service Design
-I've dockerized and used Java and Go applications with the names/tags of
+Dockerized and used Java and Go applications with the names/tags of
 
 - **Java**: mert/wr:java
 - **Go**: mert/wr:go
-
-I provided the Dockerfiles just in case.
 
 Since we're focused on Canary Deployment by specifying weights for applications, I decided to use one service and two deployments. Components are as listed
 - **1 Service**: wr
