@@ -29,10 +29,10 @@ Since we're focused on Canary Deployment by specifying weights for applications,
 - **1 Destination Rule**: wr
 - **1 Ingress Gateway**: wr-gateway
 
-I'd like to point out that Istio also supports weighted routing between two different services. But this is not the case in this presentation.
+I'd like to point out that Istio also supports weighted routing between two different services. But this is not the case here.
  
 ## Setup
-This step includes my environment to implement the solution.
+This step includes the environment to implement the solution.
 ### Environment
 - Windows 10 Host
 - Ubuntu 18.04 LTS Guest running on Oracle VMBox with 
@@ -65,7 +65,7 @@ This step includes my environment to implement the solution.
        $ kubectl apply -f service.yml
        $ kubectl apply -f deployment_go.yml
        $ kubectl apply -f deployment_java.yml
-- (Optional) I've added two HPA files for both deployments. If you'd like to provision pod autoscaling, you can execute
+- (Optional) Added two HPA files for both deployments. If you'd like to provision pod autoscaling, you can execute
  
        $ kubectl apply -f hpa_go.yml
        $ kubectl apply -f hpa_java.yml
