@@ -92,4 +92,5 @@ This step includes the environment to implement the solution.
       - for ((i=1;i<=100;i++)); do curl -s -o /dev/null -v "wr.com"; sleep 0.2; done
 
 - After making 100 requests, we can now see that the Go subset gets approximately two out of three requests and Java subset gets one of three.
-![Load Balancing two versions](https://codeogre-photo.s3-eu-west-1.amazonaws.com/kiali.png) 
+
+      - xdg-open "https://$(minikube ip):$(kubectl -n istio-system get service kiali -o jsonpath='{.spec.ports[?(@.port==20001)].nodePort}')/kiali/console"
